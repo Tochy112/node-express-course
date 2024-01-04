@@ -3,6 +3,9 @@ require("dotenv").config()
 const connectDB = require("./db/connect")
 const router = require("./routes/products")
 
+// access the async error package
+require("express-async-errors")
+
 const express = require('express')
 const app = express()
 
@@ -19,7 +22,7 @@ app.get("/", (req, res) => {
 })
 
 //set base path for our router
-app.use("/api/v1/products", router)
+app.use("/api/v1/products", router) 
 
 app.use(notFoundMiddleware)
 app.use(errorMiddleware)
