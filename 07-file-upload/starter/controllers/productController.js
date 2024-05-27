@@ -1,15 +1,6 @@
 const productSchema = require("../models/Product")
 const { StatusCodes } = require("http-status-codes")
-const cloudinary = require('cloudinary').v2
-const { v4: uuidv4 } = require('uuid');
-
-
-cloudinary.config({ 
-    cloud_name: process.env.CLOUD_NAME, 
-    api_key: process.env.CLOUD_API_KEY, 
-    api_secret: process.env.CLOUD_API_SECRET 
-  });
-
+const cloudinary = require("../utils/cloudinary-config")
 
 // const createProduct = async (req, res) => {
 //     const product = await productSchema.create(req.body)
