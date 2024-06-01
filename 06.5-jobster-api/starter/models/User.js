@@ -23,9 +23,30 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please provide password'],
     minlength: 6,
   },
-})
+  Lastname: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: "Last name"
+  },
+  Location: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: "My City"
+  },
+  LastLogin: {
+    type: Date,
+    default: new Date()
+  }
+}, {timestamps: true})
 
 UserSchema.pre('save', async function () {
+  //console.log(this.modifiedPaths()); checking for modified datas
+
+  // don't hash the password again if it's not modified (updating user details)
+  if (!this.isModified('password')) return; 
+
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })
