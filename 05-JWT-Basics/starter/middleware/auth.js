@@ -4,6 +4,7 @@ const { UnAuthenticatedError } = require("../errors")
 
 const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization //from the hearders
+    console.log(authHeader);
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         throw new UnAuthenticatedError("No token provided")
     }

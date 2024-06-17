@@ -1,4 +1,4 @@
-const productSchema = require("../models/product")
+ const productSchema = require("../models/product")
 
 const getAllProducts = async (req, res) => {
     //here we set query params to enable filtering
