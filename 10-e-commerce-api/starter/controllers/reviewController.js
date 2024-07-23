@@ -6,7 +6,7 @@ const { checkPermission } = require("../utils/checkPermissions")
 
 const createReview = async (req, res) => {
     const form = req.body
-    const productId = form.product
+    const productId = form.product // this should come from the query param not body
 
     //check if product exits
     const isValidProduct = await Product.findOne({

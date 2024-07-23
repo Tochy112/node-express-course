@@ -42,7 +42,8 @@ const createOrder = async (req, res) => {
       product: _id,
     };
     // add item to order
-    orderItems = [...orderItems, singleOrderItem];
+    // orderItems = [...orderItems, singleOrderItem];
+    orderItems.push(singleOrderItem);
     // calculate subtotal
     subtotal += item.amount * price;
   }
@@ -68,6 +69,7 @@ const createOrder = async (req, res) => {
     .status(StatusCodes.CREATED)
     .json({ order, clientSecret: order.clientSecret });
 };
+
 const getAllOrders = async (req, res) => {
   const orders = await Order.find({});
   res.status(StatusCodes.OK).json({ orders, count: orders.length });
@@ -76,11 +78,11 @@ const getAllOrders = async (req, res) => {
 
 const getSingleOrder = async (req, res) => {
   const { id: orderId } = req.params;
-  const order = await Order.findOne({ _id: orderId });
+  const order = await Order.findOne({ _id: orderId, user:req.user.userId });
   if (!order) {
     throw new NotFoundError(`No order with id : ${orderId}`);
   }
-  checkPermissions(req.user, order.user);
+  // checkPermissions(req.user, order.user);
   res.status(StatusCodes.OK).json({ order });
 };
 
